@@ -666,6 +666,19 @@ public class IndexWriter implements Closeable, TwoPhaseCommit, Accountable,
   }
 
   /**
+   * Obtain the number of deleted docs for a pooled reader.
+   * If the reader isn't being pooled, the segmentInfo's
+   * delCount is returned.
+   */
+  public int numDeletedDocs() {
+    int deleteCnt = 0;
+    for( SegmentCommitInfo info : segmentInfos){
+      deleteCnt += numDeletedDocs(info);
+    }
+    return  deleteCnt;
+  }
+
+  /**
    * Used internally to throw an {@link AlreadyClosedException} if this
    * IndexWriter has been closed or is in the process of closing.
    * 

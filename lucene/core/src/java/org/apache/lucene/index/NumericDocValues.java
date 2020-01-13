@@ -36,4 +36,9 @@ public abstract class NumericDocValues extends DocValuesIterator {
    */
   public abstract long longValue() throws IOException;
 
+  public synchronized long get(int docId) throws IOException{
+    advance(docId);
+    return longValue();
+  }
+
 }
